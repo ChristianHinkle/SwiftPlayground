@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyLittleCli",
+            "name": "Debug MyLittleCli (MyLittleCli)",
+            "target": "MyLittleCli",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug MyLittleCli (MyLittleCli)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyLittleCli",
+            "name": "Release MyLittleCli (MyLittleCli)",
+            "target": "MyLittleCli",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release MyLittleCli (MyLittleCli)"
+        }
+    ]
+}
