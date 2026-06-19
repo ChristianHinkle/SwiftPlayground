@@ -19,6 +19,26 @@
             "target": "MyLittleCli",
             "configuration": "release",
             "preLaunchTask": "swift: Build Release MyLittleCli (MyLittleCli)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyRealCli",
+            "name": "Debug MyRealCli (MyRealCli)",
+            "target": "MyRealCli",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug MyRealCli (MyRealCli)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyRealCli",
+            "name": "Release MyRealCli (MyRealCli)",
+            "target": "MyRealCli",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release MyRealCli (MyRealCli)"
         }
     ]
 }
