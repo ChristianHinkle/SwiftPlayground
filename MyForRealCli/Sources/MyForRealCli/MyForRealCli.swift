@@ -2,7 +2,7 @@
 // https://docs.swift.org/swift-book
 
 @main
-struct MyRealCli {
+struct MyForRealCli {
     static func main() {
         print("Hello, world!")
     }

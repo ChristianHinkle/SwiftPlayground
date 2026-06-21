@@ -24,21 +24,21 @@
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:SwiftPlayground}/MyRealCli",
-            "name": "Debug MyRealCli (MyRealCli)",
-            "target": "MyRealCli",
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyForRealCli",
+            "name": "Debug MyForRealCli (MyForRealCli)",
+            "target": "MyForRealCli",
             "configuration": "debug",
-            "preLaunchTask": "swift: Build Debug MyRealCli (MyRealCli)"
+            "preLaunchTask": "swift: Build Debug MyForRealCli (MyForRealCli)"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:SwiftPlayground}/MyRealCli",
-            "name": "Release MyRealCli (MyRealCli)",
-            "target": "MyRealCli",
+            "cwd": "${workspaceFolder:SwiftPlayground}/MyForRealCli",
+            "name": "Release MyForRealCli (MyForRealCli)",
+            "target": "MyForRealCli",
             "configuration": "release",
-            "preLaunchTask": "swift: Build Release MyRealCli (MyRealCli)"
+            "preLaunchTask": "swift: Build Release MyForRealCli (MyForRealCli)"
         }
     ]
 }
