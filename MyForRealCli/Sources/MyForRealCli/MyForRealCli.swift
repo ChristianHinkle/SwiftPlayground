@@ -16,6 +16,10 @@ let myFunctionTable: [String: @Sendable () -> Void] = [
     "projectCreate":  commandProjectCreateNoParamsJustForExperimenting
 ]
 
+let myCommandNames = [
+    "projectCreate"
+]
+
 @main
 struct MyForRealCli {
     static func main() {
@@ -24,6 +28,18 @@ struct MyForRealCli {
         // Note: As a CLI application, we ignore the first arg, as that is conventionally the program name, but it's not guarenteed to
         // be anyway, and we don't need it anyway.
 
-        dispatchCommandToFunction(args: CommandLine.arguments.dropFirst(), functionTable: myFunctionTable)
+        let parsedCommand = parseCommand(args: CommandLine.arguments.dropFirst(), commandNames: myCommandNames)
+
+        if parsedCommand == nil {
+            print("Invalid command name")
+            return
+        }
+
+        switch parsedCommand!.commandIndex {
+        case 0:
+            commandProjectCreateNoParamsJustForExperimenting()
+        default:
+            break;
+        }
     }
 }

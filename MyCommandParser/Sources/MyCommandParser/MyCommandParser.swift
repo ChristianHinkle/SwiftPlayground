@@ -7,12 +7,12 @@ public func myYoFunc() -> Int32 {
 
 // TODO: [todo] Change the data structure of the "functionTable" parameter, to support namespaced command names and arguments.
 public func dispatchCommandToFunction(args: ArraySlice<String>, functionTable: [String: @Sendable () -> Void]) {
-    if (args.isEmpty)
+    if args.isEmpty
     {
         return
     }
 
-    if let function = functionTable[args.first!] {
-        function()
+    if let foundFunction = functionTable[args.first!] {
+        foundFunction()
     }
 }
