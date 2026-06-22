@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "MyForRealCli",
     dependencies: [
-        .package(path: "../MyCommandDispatcher"),
+        .package(path: "../MyCommandParser"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -14,7 +14,7 @@ let package = Package(
         .executableTarget(
             name: "MyForRealCli",
             dependencies: [
-                .product(name: "MyCommandDispatcher", package: "MyCommandDispatcher"),
+                .product(name: "MyCommandParser", package: "MyCommandParser"),
             ]
         ),
         .testTarget(

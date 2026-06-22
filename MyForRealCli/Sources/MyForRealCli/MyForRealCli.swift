@@ -1,7 +1,7 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-import MyCommandDispatcher
+import MyCommandParser
 
 func commandProjectCreate(path: String) {
     print("Creating project at", path)
