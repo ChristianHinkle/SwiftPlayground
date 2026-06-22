@@ -7,10 +7,9 @@ public func parseCommand(args: ArraySlice<String>, commandNames: [String]) -> Pa
 
     let commandName = args.first!
 
-    let foundCommandIndex = commandNames.firstIndex(of: commandName)
-    if foundCommandIndex == nil {
+    guard let foundCommandIndex = commandNames.firstIndex(of: commandName) else {
         return nil
     }
 
-    return ParsedCommand(commandIndex: foundCommandIndex!)
+    return ParsedCommand(commandIndex: foundCommandIndex)
 }
