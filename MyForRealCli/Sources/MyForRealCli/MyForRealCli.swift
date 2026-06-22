@@ -11,11 +11,6 @@ func commandProjectCreateNoParamsJustForExperimenting() {
     commandProjectCreate(path: "This is a fake placeholder string")
 }
 
-// TODO: [todo] Change the data structure of the "functionTable" parameter, to support namespaced command names and arguments.
-let myFunctionTable: [String: @Sendable () -> Void] = [
-    "projectCreate":  commandProjectCreateNoParamsJustForExperimenting
-]
-
 let myCommandNames = [
     "projectCreate"
 ]

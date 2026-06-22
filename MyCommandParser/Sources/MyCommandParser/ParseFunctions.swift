@@ -1,4 +1,5 @@
 
+// TODO: [todo] Implement namespaced command names and implement arguments.
 public func parseCommand(args: ArraySlice<String>, commandNames: [String]) -> ParsedCommand? {
     if args.isEmpty
     {
