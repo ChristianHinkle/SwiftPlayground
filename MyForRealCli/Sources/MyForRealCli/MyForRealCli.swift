@@ -11,8 +11,14 @@ func commandProjectCreateNoParamsJustForExperimenting() {
     commandProjectCreate(path: "This is a fake placeholder string")
 }
 
-let myCommandNames = [
-    "projectCreate"
+let myCommandNodeNameArray = [
+    "project",
+    "create",
+]
+
+let myCommandNodeParentArray: [CommandNodeIndex] = [
+    InvalidCommandNodeIndex,
+    0,
 ]
 
 @main
@@ -23,13 +29,15 @@ struct MyForRealCli {
         // Note: As a CLI application, we ignore the first arg, as that is conventionally the program name, but it's not guarenteed to
         // be anyway, and we don't need it anyway.
 
-        guard let parsedCommand = parseCommand(args: CommandLine.arguments.dropFirst(), commandNames: myCommandNames) else {
+        guard let parsedCommand = parseCommand(tokens: CommandLine.arguments.dropFirst(), commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray) else {
             print("Invalid command name")
             return
         }
 
-        switch parsedCommand.commandIndex {
+        switch parsedCommand.commandNodeIndex {
         case 0:
+            assert(false, "TODO: [todo] Handle case when user tries to execute a namespacing command node like this one which is not executable.")
+        case 1:
             commandProjectCreateNoParamsJustForExperimenting()
         default:
             assert(false, "Unimplemented command index.")
