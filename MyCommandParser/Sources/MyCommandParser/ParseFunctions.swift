@@ -4,10 +4,18 @@ public func isCommandNodeChildOf(commandNodeParentArray: [CommandNodeIndex], com
     return parentNode == actualParentNode
 }
 
-public func parseCommandNodeIndex(tokens: ArraySlice<String>, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) -> CommandNodeIndex? {
+public struct ParsedCommandNodeIndexResult {
+    public var result: Int
+    public var numTokensParsed: Int
+}
+
+public func parseCommandNodeIndex(tokens: ArraySlice<String>, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) -> ParsedCommandNodeIndexResult? {
     var commandNodeIndex: CommandNodeIndex? = nil
 
+    var numTokensParsed: Int = 0
+
     for token in tokens {
+        // TODO: [todo] Handle duplicate child command node names that have different parents.
         guard let currentTokenCommandNodeIndex = commandNodeNameArray.firstIndex(of: token) else {
             // This token is not a command node.
             break
@@ -20,23 +28,54 @@ public func parseCommandNodeIndex(tokens: ArraySlice<String>, commandNodeNameArr
             }
         }
 
+        numTokensParsed += 1
         commandNodeIndex = currentTokenCommandNodeIndex
     }
 
-    return commandNodeIndex
+    guard let commandNodeIndex else {
+        return nil
+    }
+
+    return ParsedCommandNodeIndexResult(result: commandNodeIndex, numTokensParsed: numTokensParsed)
 }
 
-// TODO: [todo] Implement arguments.
+public struct ParsedCommandArgumentsResult {
+    public var namedArguments: [String: String] = [:]
+    public var flagArguments: Set<String> = []
+    public var positionalArguments: [String] = []
+}
+
+public func parseCommandArguments(argumentTokens: ArraySlice<String>) -> ParsedCommandArgumentsResult {
+
+    var namedArguments: [String: String] = [:]
+    var flagArguments: Set<String> = []
+    var positionalArguments: [String] = []
+
+    for token in argumentTokens {
+        // TODO: [todo] Populate the argument variables that will be returned.
+    }
+
+    return ParsedCommandArgumentsResult(namedArguments: namedArguments, flagArguments: flagArguments, positionalArguments: positionalArguments)
+}
+
 public func parseCommand(tokens: ArraySlice<String>, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) -> ParsedCommand? {
     if tokens.isEmpty
     {
         return nil
     }
 
-    guard let commandNodeIndex = parseCommandNodeIndex(tokens: tokens, commandNodeNameArray: commandNodeNameArray, commandNodeParentArray: commandNodeParentArray) else {
+    guard let parsedCommandNodeIndexResult = parseCommandNodeIndex(tokens: tokens, commandNodeNameArray: commandNodeNameArray, commandNodeParentArray: commandNodeParentArray) else {
         // No command node found for the tokens passed in.
         return nil
     }
 
-    return ParsedCommand(commandNodeIndex: commandNodeIndex)
+    let argumentTokens = tokens.suffix(from: tokens.startIndex + parsedCommandNodeIndexResult.numTokensParsed)
+
+    let parsedCommandArgumentsResult = parseCommandArguments(argumentTokens: argumentTokens)
+
+    return ParsedCommand(
+        namedArguments: parsedCommandArgumentsResult.namedArguments,
+        flagArguments: parsedCommandArgumentsResult.flagArguments,
+        positionalArguments: parsedCommandArgumentsResult.positionalArguments,
+        commandNodeIndex: parsedCommandNodeIndexResult.result)
 }

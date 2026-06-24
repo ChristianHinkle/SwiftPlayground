@@ -5,7 +5,8 @@ public typealias CommandNodeIndex = Int
 public let InvalidCommandNodeIndex: CommandNodeIndex = -1
 
 public struct ParsedCommand {
+    public var namedArguments: [String: String] = [:]
+    public var flagArguments: Set<String> = []
+    public var positionalArguments: [String] = []
     public var commandNodeIndex: CommandNodeIndex
-
-    // TODO: [todo] Add members for named arguments, positional arguments, and flags.
 }
