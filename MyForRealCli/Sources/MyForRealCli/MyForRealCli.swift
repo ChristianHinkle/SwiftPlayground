@@ -42,5 +42,10 @@ struct MyForRealCli {
         default:
             assert(false, "Unimplemented command index.")
         }
+
+        // TODO: [todo] Write tests that verify intented results of these.
+        print("parsedCommand.namedArguments:", parsedCommand.namedArguments)
+        print("parsedCommand.flagArguments:", parsedCommand.flagArguments)
+        print("parsedCommand.positionalArguments:", parsedCommand.positionalArguments)
     }
 }

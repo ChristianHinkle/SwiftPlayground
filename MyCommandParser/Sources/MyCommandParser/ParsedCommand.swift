@@ -5,8 +5,8 @@ public typealias CommandNodeIndex = Int
 public let InvalidCommandNodeIndex: CommandNodeIndex = -1
 
 public struct ParsedCommand {
-    public var namedArguments: [String: String] = [:]
-    public var flagArguments: Set<String> = []
-    public var positionalArguments: [String] = []
+    public var namedArguments: [Substring: Substring] = [:]
+    public var flagArguments: Set<Substring> = []
+    public var positionalArguments: [Substring] = []
     public var commandNodeIndex: CommandNodeIndex
 }
