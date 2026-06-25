@@ -21,13 +21,13 @@ func commandProjectCreate(path: Substring) {
 @main
 struct MyForRealCli {
     static func main() {
-        print("Hello, world!")
-
         // Note: As a CLI application, we ignore the first arg, as that is conventionally the program name, but it's not guarenteed to
         // be anyway, and we don't need it anyway.
 
+        print()
+
         guard let parsedCommand = parseCommand(tokens: CommandLine.arguments.dropFirst(), commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray) else {
-            print("Invalid command name")
+            print("error: invalid command name")
             return
         }
 
@@ -49,7 +49,9 @@ struct MyForRealCli {
             assert(false, "Unimplemented command index.")
         }
 
-        // TODO: [todo] Write tests that verify intented results of these.
+        print()
+
+        print("Check this out. I have your arguments:")
         print("parsedCommand.namedArguments:", parsedCommand.namedArguments)
         print("parsedCommand.flagArguments:", parsedCommand.flagArguments)
         print("parsedCommand.positionalArguments:", parsedCommand.positionalArguments)
