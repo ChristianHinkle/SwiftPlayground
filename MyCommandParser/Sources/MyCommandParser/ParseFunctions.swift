@@ -1,4 +1,34 @@
 
+public func getFullNameOfCommandNode(commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex) -> String {
+    var result = String()
+    appendFullNameOfCommandNode(string: &result,
+        commandNodeNameArray: commandNodeNameArray,
+        commandNodeParentArray: commandNodeParentArray,
+        commandNode: commandNode)
+
+    return result
+}
+
+public func appendFullNameOfCommandNode(string: inout String, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex) {
+    // Append parent node names first.
+    do {
+        let parentNodeIndex = commandNodeParentArray[commandNode]
+        if parentNodeIndex != InvalidCommandNodeIndex {
+
+            appendFullNameOfCommandNode(string: &string,
+                commandNodeNameArray: commandNodeNameArray,
+                commandNodeParentArray: commandNodeParentArray,
+                commandNode: parentNodeIndex)
+
+            // Separate parent and child node names with a space.
+            string.append(Character(" "))
+        }
+    }
+
+    // Append our own node name.
+    string.append(commandNodeNameArray[commandNode])
+}
+
 public func isCommandNodeChildOf(commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex, parentNode: CommandNodeIndex) -> Bool {
     let actualParentNode = commandNodeParentArray[commandNode]
     return parentNode == actualParentNode
@@ -11,7 +41,7 @@ public struct ParsedCommandNodeIndex {
 
 public func parseCommandNodeIndex(tokens: ArraySlice<String>, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) -> ParsedCommandNodeIndex? {
     var commandNodeIndex: CommandNodeIndex? = nil
-    var numTokensParsed: Int = 0
+    var numTokensParsed = 0
 
     for token in tokens {
         // TODO: [todo] Handle duplicate child command node names that have different parents.

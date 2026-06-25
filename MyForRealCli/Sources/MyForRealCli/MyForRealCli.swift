@@ -3,14 +3,6 @@
 
 import MyCommandParser
 
-func commandProjectCreate(path: String) {
-    print("Creating project at", path)
-}
-
-func commandProjectCreateNoParamsJustForExperimenting() {
-    commandProjectCreate(path: "This is a fake placeholder string")
-}
-
 let myCommandNodeNameArray = [
     "project",
     "create",
@@ -20,6 +12,11 @@ let myCommandNodeParentArray: [CommandNodeIndex] = [
     InvalidCommandNodeIndex,
     0,
 ]
+
+func commandProjectCreate(path: Substring) {
+    // Note: Acceptable path strings are either absolute paths, or relative to the cwd.
+    print("Creating project at", path)
+}
 
 @main
 struct MyForRealCli {
@@ -34,11 +31,20 @@ struct MyForRealCli {
             return
         }
 
+        let commandNodeFullName = getFullNameOfCommandNode(commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray, commandNode: parsedCommand.commandNodeIndex)
+
         switch parsedCommand.commandNodeIndex {
         case 0:
-            assert(false, "TODO: [todo] Handle case when user tries to execute a namespacing command node like this one which is not executable.")
+            print("error:", "'\(commandNodeFullName)'", "is not a fully specified command name")
         case 1:
-            commandProjectCreateNoParamsJustForExperimenting()
+            guard let pathArgument = parsedCommand.positionalArguments.first else {
+                print("error: no path argument specified")
+                break
+            }
+
+            // TODO: [todo] Implement validation that no additional, unrecognized arguments were given.
+
+            commandProjectCreate(path: pathArgument)
         default:
             assert(false, "Unimplemented command index.")
         }
