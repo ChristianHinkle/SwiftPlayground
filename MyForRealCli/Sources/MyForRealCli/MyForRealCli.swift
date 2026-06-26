@@ -31,7 +31,7 @@ struct MyForRealCli {
             return
         }
 
-        let commandNodeFullName = getFullNameOfCommandNode(commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray, commandNode: parsedCommand.commandNodeIndex)
+        let commandNodeFullName = getFullNameOfCommandNode(parsedCommand.commandNodeIndex, commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray)
 
         switch parsedCommand.commandNodeIndex {
         case 0:

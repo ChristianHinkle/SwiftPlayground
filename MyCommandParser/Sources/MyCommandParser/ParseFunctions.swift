@@ -1,24 +1,24 @@
 
-public func getFullNameOfCommandNode(commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex) -> String {
+public func getFullNameOfCommandNode(_ commandNode: CommandNodeIndex, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) -> String {
     var result = String()
     appendFullNameOfCommandNode(string: &result,
+        commandNode,
         commandNodeNameArray: commandNodeNameArray,
-        commandNodeParentArray: commandNodeParentArray,
-        commandNode: commandNode)
+        commandNodeParentArray: commandNodeParentArray)
 
     return result
 }
 
-public func appendFullNameOfCommandNode(string: inout String, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex) {
+public func appendFullNameOfCommandNode(string: inout String, _ commandNode: CommandNodeIndex, commandNodeNameArray: [String], commandNodeParentArray: [CommandNodeIndex]) {
     // Append parent node names first.
     do {
         let parentNodeIndex = commandNodeParentArray[commandNode]
         if parentNodeIndex != InvalidCommandNodeIndex {
 
             appendFullNameOfCommandNode(string: &string,
+                parentNodeIndex,
                 commandNodeNameArray: commandNodeNameArray,
-                commandNodeParentArray: commandNodeParentArray,
-                commandNode: parentNodeIndex)
+                commandNodeParentArray: commandNodeParentArray)
 
             // Separate parent and child node names with a space.
             string.append(Character(" "))
@@ -29,7 +29,7 @@ public func appendFullNameOfCommandNode(string: inout String, commandNodeNameArr
     string.append(commandNodeNameArray[commandNode])
 }
 
-public func isCommandNodeChildOf(commandNodeParentArray: [CommandNodeIndex], commandNode: CommandNodeIndex, parentNode: CommandNodeIndex) -> Bool {
+public func isCommandNodeChildOf(_ commandNode: CommandNodeIndex, parentNode: CommandNodeIndex, commandNodeParentArray: [CommandNodeIndex]) -> Bool {
     let actualParentNode = commandNodeParentArray[commandNode]
     return parentNode == actualParentNode
 }
@@ -51,7 +51,7 @@ public func parseCommandNodeIndex(tokens: ArraySlice<String>, commandNodeNameArr
         }
 
         if let previousTokenCommandNodeIndex = commandNodeIndex {
-            if !isCommandNodeChildOf(commandNodeParentArray: commandNodeParentArray, commandNode: currentTokenCommandNodeIndex, parentNode: previousTokenCommandNodeIndex) {
+            if !isCommandNodeChildOf(currentTokenCommandNodeIndex, parentNode: previousTokenCommandNodeIndex, commandNodeParentArray: commandNodeParentArray) {
                 // This token is not a child command node of the previous token.
                 break
             }
@@ -74,7 +74,7 @@ public enum ParsedCommandArgument {
     case positionalArgument(Substring)
 }
 
-public func parseSingleCommandArgument(token: String) -> ParsedCommandArgument {
+public func parseSingleCommandArgument(_ token: String) -> ParsedCommandArgument {
     // Handle positional argument case (token is not prefixed with a double dash).
     if !token.hasPrefix("--") {
         return .positionalArgument(Substring(token))
@@ -108,7 +108,7 @@ public func parseCommandArguments(argumentTokens: ArraySlice<String>) -> ParsedC
     var positionalArguments: [Substring] = []
 
     for token in argumentTokens {
-        let commandArgumentEnum = parseSingleCommandArgument(token: token)
+        let commandArgumentEnum = parseSingleCommandArgument(token)
 
         switch commandArgumentEnum {
         case .namedArgument(let value):

@@ -33,6 +33,6 @@ let myCommandNodeParentArray: [CommandNodeIndex] = [
 }
 
 @Test func testGetFullNameOfCommandNode() async throws {
-    let commandNodeFullName = getFullNameOfCommandNode(commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray, commandNode: 1)
+    let commandNodeFullName = getFullNameOfCommandNode(1, commandNodeNameArray: myCommandNodeNameArray, commandNodeParentArray: myCommandNodeParentArray)
     #expect(commandNodeFullName == "project create")
 }
